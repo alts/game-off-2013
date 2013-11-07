@@ -2,7 +2,8 @@
   var levels = require('levels.js'),
       world  = require('world.js'),
       symbol_map = {
-        '~wizard': require('wizard.js')
+        '~wizard': require('wizard.js'),
+        '~food': require('food.js')
       };
 
   return function(level_i) {

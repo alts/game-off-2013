@@ -2,23 +2,23 @@
   var jerk        = require('jerk.js'),
       C           = require('constants.js'),
       grid_object = require('grid_object.js'),
-      wizard = Object.create(grid_object);
+      food        = Object.create(grid_object);
 
-  wizard.type = '~wizard';
+  food.type = '~food';
 
-  wizard.init_from_repr = function(repr) {
+  food.init_from_repr = function(repr) {
     grid_object.init_from_repr.call(this, repr);
   };
 
-  wizard.draw = function() {
+  food.draw = function() {
     var ctx = jerk.ctx;
 
-    ctx.fillStyle = '#00f';
+    ctx.fillStyle = '#f00';
     ctx.fillRect(
       this.true_x(), this.true_y(),
       C.UNIT_SIZE, C.UNIT_SIZE
     );
   };
 
-  return wizard;
+  return food;
 })();
