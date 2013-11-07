@@ -1,0 +1,22 @@
+(function() {
+  var SCREEN_WIDTH = 640,
+      SCREEN_HEIGHT = 480,
+      UNIT_SIZE = SCREEN_WIDTH / 20,
+      BUFFER_HEIGHT = SCREEN_HEIGHT % UNIT_SIZE;
+
+  if (BUFFER_HEIGHT < 32) {
+    BUFFER_HEIGHT += 32;
+  }
+
+  return {
+    SCREEN_WIDTH: SCREEN_WIDTH,
+    SCREEN_HEIGHT: SCREEN_HEIGHT,
+    UNIT_SIZE: UNIT_SIZE,
+    BUFFER_HEIGHT: BUFFER_HEIGHT,
+    // keys
+    K_UP: 38,
+    K_DOWN: 40,
+    K_LEFT: 37,
+    K_RIGHT: 39
+  };
+})();
