@@ -8,6 +8,7 @@
 
   wizard.init_from_repr = function(repr) {
     grid_object.init_from_repr.call(this, repr);
+    this.consumed_map = {};
   };
 
   wizard.draw = function() {
@@ -18,6 +19,17 @@
       this.true_x(), this.true_y(),
       C.UNIT_SIZE, C.UNIT_SIZE
     );
+  };
+
+  wizard.consume = function(consumable_type) {
+    if (!this.consumed_map[consumable_type]) {
+      this.consumed_map[consumable_type] = 0;
+    }
+    this.consumed_map[consumable_type]++;
+  };
+
+  wizard.num_consumed = function(consumable_type) {
+    return this.consumed_map[consumable_type] || 0;
   };
 
   return wizard;

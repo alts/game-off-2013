@@ -23,7 +23,7 @@
     this.world.draw();
   };
 
-  scene.onkeyup = function(e) {
+  scene.onkeydown = function(e) {
     var code = e.keyCode || e.charCode;
     if (code == C.K_UP) {
       this.world.move_char_up();

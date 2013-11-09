@@ -2,6 +2,7 @@
   var jerk        = require('jerk.js'),
       C           = require('constants.js'),
       grid_object = require('grid_object.js'),
+      attrs       = require('attributes.js'),
       food        = Object.create(grid_object);
 
   food.type = '~food';
@@ -19,6 +20,8 @@
       C.UNIT_SIZE, C.UNIT_SIZE
     );
   };
+
+  food.on_collide = attrs.consumable;
 
   return food;
 })();

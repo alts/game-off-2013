@@ -7,7 +7,7 @@
         ['~food', 7, 2]
       ],
       win: function(world) {
-        return world.wizard.ate_food;
+        return world.player_character.num_consumed('~food') == 1;
       }
     }
   ];
