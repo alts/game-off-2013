@@ -8,7 +8,6 @@
   scene.enter = function(prev) {
     this.reload();
     this.world = loader(0);
-    console.log(this.world);
   };
 
   scene.reload = function() {

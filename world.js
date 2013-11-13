@@ -8,6 +8,7 @@
     this.win_condition = win_condition;
     this.player_character = null;
     this.potential_targets = [null, null, null, null];
+    this.highlighted_targets = [null, null];
   };
 
   world.add_object = function(obj) {
@@ -84,6 +85,9 @@
     for (var i = 0; i < 4; i++) {
       this.potential_targets[i] = null;
     }
+    for (var i = 0; i < 2; i++) {
+      this.highlighted_targets[i] = null;
+    }
   };
 
   move_char = function(dx, dy) {
@@ -120,8 +124,48 @@
   world.move_char_up    = move_char( 0, -1);
   world.move_char_down  = move_char( 0,  1);
 
-  var cast_magic = function(dx, dy) {
+  var cast_magic = function(direction_index) {
+    return function() {
+      var target = this.potential_targets[direction_index];
 
+      if (!target) {
+        return false;
+      }
+
+      if (this.highlighted_targets[0] === null) {
+        return this.select_source(target);
+      } else {
+        return this.select_drain(target);
+      }
+    }
+  };
+
+  world.cast_magic_right = cast_magic(2);
+  world.cast_magic_left  = cast_magic(0);
+  world.cast_magic_up    = cast_magic(1);
+  world.cast_magic_down  = cast_magic(3);
+
+  world.select_source = function(target) {
+    this.highlighted_targets[0] = target;
+    target.enchant();
+    return true;
+  };
+
+  world.select_drain = function(target) {
+    var to_copy = this.highlighted_targets[0];
+    to_copy.dechant();
+
+    var copy = Object.create(Object.getPrototypeOf(to_copy));
+    copy.init_from_repr(to_copy.to_repr());
+    copy.x = target.x;
+    copy.y = target.y;
+
+    this.add_object(copy);
+    target.dead = true;
+
+    this.on_step();
+    this.start_magic();
+    return true;
   };
 
   world.on_step = function() {

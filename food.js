@@ -7,10 +7,6 @@
 
   food.type = '~food';
 
-  food.init_from_repr = function(repr) {
-    grid_object.init_from_repr.call(this, repr);
-  };
-
   food.draw = function() {
     var ctx = jerk.ctx;
 
