@@ -1,16 +1,22 @@
 (function() {
-  var jerk     = require('jerk.js'),
-      C        = require('constants.js'),
-      progress = require('progress.js'),
-      loader   = require('level_loader.js'),
+  var jerk        = require('jerk.js'),
+      C           = require('constants.js'),
+      progress    = require('progress.js'),
+      loader      = require('level_loader.js'),
+      level_title = require('level_title.js'),
+      submessage  = require('submessage.js'),
       scene = Object.create(jerk.scene);
 
   scene.enter = function(prev) {
+    if (this.current_level == null) {
+      this.current_level = 0;
+    }
     this.reload();
-    this.world = loader(0);
   };
 
   scene.reload = function() {
+    this.world = loader(this.current_level);
+    this.level_title = level_title;
   };
 
   scene.draw = function() {
@@ -20,10 +26,25 @@
     ctx.fillRect(0, 0, C.SCREEN_WIDTH, C.SCREEN_HEIGHT);
 
     this.world.draw();
+
+    if (this.world.did_win) {
+      this.level_title.draw('NEED SATISFIED!');
+      submessage.draw();
+    } else {
+      this.level_title.draw(this.world.title);
+    }
   };
 
   scene.onkeydown = function(e) {
     var code = e.keyCode || e.charCode;
+    if (this.world.did_win) {
+      if (code == C.K_SPACE) {
+        this.current_level++;
+        this.reload();
+      }
+      return;
+    }
+
     if (this.world.player_character.is_casting) {
       if (code == C.K_UP) {
         this.world.cast_magic_up();

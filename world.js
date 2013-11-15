@@ -9,6 +9,7 @@
     this.player_character = null;
     this.potential_targets = [null, null, null, null];
     this.highlighted_targets = [null, null];
+    this.did_win = false;
   };
 
   world.add_object = function(obj) {
@@ -170,7 +171,7 @@
 
   world.on_step = function() {
     if (this.satisfies_win_condition()) {
-      console.log('win');
+      this.did_win = true;
     }
 
     var obj;

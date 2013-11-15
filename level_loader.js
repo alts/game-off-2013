@@ -3,8 +3,9 @@
       world  = require('world.js'),
       symbol_map = {
         '~wizard': require('wizard.js'),
-        '~food': require('food.js'),
-        '~crate': require('crate.js')
+        '~food':   require('food.js'),
+        '~crate':  require('crate.js'),
+        '~doodad': require('doodad.js')
       };
 
   return function(level_i) {
