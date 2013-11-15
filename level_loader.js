@@ -38,6 +38,21 @@
       }
     }
 
+    if (level.walls) {
+      var x, y, dx, dy, wall;
+      for (var i = 0, l = level.walls.length; i < l; i += 4) {
+        x = level.walls[i];
+        y = level.walls[i+1];
+        for (var j = 0, x_limit = level.walls[i+2]; j <= x_limit; j++) {
+          for (var k = 0, y_limit = level.walls[i+3]; k <= y_limit; k++) {
+            wall = Object.create(symbol_map['~wall']);
+            wall.init_from_repr(['~wall', x + j, y + k]);
+            current_world.add_object(wall);
+          }
+        }
+      }
+    }
+
     return current_world;
   };
 })();
