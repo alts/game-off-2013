@@ -5,7 +5,8 @@
         '~wizard': require('wizard.js'),
         '~food':   require('food.js'),
         '~crate':  require('crate.js'),
-        '~doodad': require('doodad.js')
+        '~doodad': require('doodad.js'),
+        '~wall':   require('wall.js')
       };
 
   return function(level_i) {
