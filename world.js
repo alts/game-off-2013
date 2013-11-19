@@ -170,10 +170,6 @@
   };
 
   world.on_step = function() {
-    if (this.satisfies_win_condition()) {
-      this.did_win = true;
-    }
-
     var obj;
 
     for (var i = this.objects.length - 1, l = -1; i > l; i--) {
@@ -181,6 +177,10 @@
       if (obj.dead) {
         this.objects.splice(i, 1);
       }
+    }
+
+    if (this.satisfies_win_condition()) {
+      this.did_win = true;
     }
   };
 

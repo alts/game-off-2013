@@ -2,6 +2,7 @@
   var jerk        = require('jerk.js'),
       C           = require('constants.js'),
       grid_object = require('grid_object.js'),
+      images      = require('images.js'),
       wizard = Object.create(grid_object);
 
   wizard.type = '~wizard';
@@ -13,16 +14,11 @@
   };
 
   wizard.draw = function() {
-    var ctx = jerk.ctx;
-
-    if (this.is_casting) {
-      ctx.fillStyle = '#0ff';
-    } else {
-      ctx.fillStyle = '#00f';
-    }
-    ctx.fillRect(
+    images.draw(
+      jerk.ctx,
+      'wizards2.png',
       this.true_x(), this.true_y(),
-      C.UNIT_SIZE, C.UNIT_SIZE
+      (this.is_casting) ? '1' : '0'
     );
   };
 
