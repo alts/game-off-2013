@@ -212,6 +212,31 @@
 
         return true;
       }
+    },
+
+    {
+      title: 'NEEDS TO LIGHT THE LANTERN',
+      objs: [
+        ['~wizard', 11, 10],
+        ['~crate', 11, 8],
+        ['~wall', 8, 8],
+        ['~doodad', 7, 8, 'unlit_lantern.png'],
+        ['~doodad', 14, 8, 'lit_lantern.png']
+      ],
+      win: function(world){
+        var obj;
+        for (var i = 0, l = world.objects.length; i < l; i++) {
+          obj = world.objects[i];
+          if (obj.x == 7 &&
+              obj.y == 8 &&
+              obj.type == '~doodad' &
+              obj.image == 'lit_lantern.png')
+          {
+            return true;
+          }
+        }
+        return false;
+      }
     }
   ];
 })();
