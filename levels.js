@@ -286,6 +286,24 @@
     },
 
     {
+      title: 'NEEDS TO FIND THEIR OLD KEY',
+      objs: [
+        ['~wizard', 11, 2],
+        ['~crate', 11, 7],
+        ['~key', 11, 13]
+      ],
+      walls: [
+        10, 1, 2, 0,
+        10, 2, 0, 11,
+        12, 2, 0, 11,
+        10, 14, 2, 0
+      ],
+      win: function(world) {
+        return world.player_character.num_consumed('~key') == 1;
+      }
+    },
+
+    {
       title: 'NEEDS TO DO SOMETHING',
       objs: [
         ['~wizard', 11, 7],

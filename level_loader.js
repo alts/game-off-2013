@@ -6,7 +6,8 @@
         '~food':   require('food.js'),
         '~crate':  require('crate.js'),
         '~doodad': require('doodad.js'),
-        '~wall':   require('wall.js')
+        '~wall':   require('wall.js'),
+        '~key':    require('key.js')
       };
 
   return function(level_i) {
