@@ -3,17 +3,16 @@
       C           = require('constants.js'),
       grid_object = require('grid_object.js'),
       attrs       = require('attributes.js'),
+      images      = require('images.js'),
       crate       = Object.create(grid_object);
 
   crate.type = '~crate';
 
   crate.draw = function() {
-    var ctx = jerk.ctx;
-
-    ctx.fillStyle = '#f96';
-    ctx.fillRect(
-      this.true_x(), this.true_y(),
-      C.UNIT_SIZE, C.UNIT_SIZE
+    images.draw(
+      jerk.ctx,
+      'crate.png',
+      this.true_x(), this.true_y()
     );
   };
 

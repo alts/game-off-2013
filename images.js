@@ -33,6 +33,7 @@
     'card_three.png': [load_image('cards.png'), 64, 0],
     'card_four.png': [load_image('cards.png'), 96, 0],
     'wizards2.png#0': [load_image('wizards2.png'), 0, 0],
-    'wizards2.png#1': [load_image('wizards2.png'), 32, 0]
+    'wizards2.png#1': [load_image('wizards2.png'), 32, 0],
+    'crate.png': [load_image('crate.png'), 0, 0]
   };
 })();
