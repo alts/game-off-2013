@@ -33,5 +33,46 @@
     this.glowing = false;
   };
 
+  // returns the position of the receiver relative to the argument
+  // 0 = same position
+  // the following four positions map roughly to the indexes for
+  //   world.potential_targets
+  // 1 = same row, right of
+  // 2 = same column, below
+  // 3 = same row, left of
+  // 4 = same column, above
+  //
+  // 5 = greater x, lesser y
+  // 6 = greater x, greater y
+  // 7 = lesser x, greater y
+  // 8 = lesser x, lesser y
+  grid_object.compare_position = function(other) {
+    if (this.x > other.x) {
+      if (this.y > other.y) {
+        return 6;
+      } else if (this.y < other.y) {
+        return 5;
+      } else {
+        return 1;
+      }
+    } else if (this.x < other.x) {
+      if (this.y > other.y) {
+        return 7;
+      } else if (this.y < other.y) {
+        return 8;
+      } else {
+        return 3;
+      }
+    } else {
+      if (this.y > other.y) {
+        return 2;
+      } else if (this.y < other.y) {
+        return 4;
+      } else {
+        return 0;
+      }
+    }
+  };
+
   return grid_object;
 })();

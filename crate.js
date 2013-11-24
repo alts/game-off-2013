@@ -17,7 +17,7 @@
     );
   };
 
-  crate.on_collide = attrs.pushable;
+  attrs.is_pushable(crate);
 
   return crate;
 })();
