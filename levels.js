@@ -240,6 +240,52 @@
     },
 
     {
+      title: 'NEEDS TO GET RID OF THE GARBAGE',
+      objs: [
+        ['~wizard', 9, 9],
+        ['~crate', 11, 9],
+        ['~crate', 13, 9],
+        ['~doodad', 11, 8, 'garbage_full.png'],
+        ['~doodad', 6, 9, 'garbage_empty.png']
+      ],
+      walls: [
+        9, 7, 1, 1,
+        7, 7, 1, 4,
+        9, 10, 9, 1,
+        11, 7, 0, 0,
+        12, 7, 2, 1,
+        16, 7, 1, 1,
+        18, 7, 0, 2,
+        15, 7, 0, 0
+      ],
+      win: function(world) {
+        var full_garbages = 0,
+            is_outside_garbage_empty = false,
+            obj;
+
+        for (var i = 0, l = world.objects.length; i < l; i++) {
+          obj = world.objects[i];
+          if (obj.type == '~doodad' && obj.image == 'garbage_full.png') {
+            full_garbages++;
+          }
+
+          if (obj.x == 6 &&
+              obj.y == 9 &&
+              obj.type == '~doodad')
+          {
+            if (obj.image == 'garbage_empty.png') {
+              is_outside_garbage_empty = true;
+            } else if (obj.image == 'garbage_full.png') {
+              full_garbages--;
+            }
+          }
+        }
+
+        return full_garbages == 0 && !is_outside_garbage_empty;
+      }
+    },
+
+    {
       title: 'NEEDS TO DO SOMETHING',
       objs: [
         ['~wizard', 11, 7],
