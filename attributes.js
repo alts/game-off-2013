@@ -8,6 +8,11 @@
     return false;
   };
 
+  attributes.passthrough = function(other, dx, dy, world_objects) {
+    // other object moves, self doesn't
+    return true;
+  }
+
   attributes.pushable = function(other, dx, dy, world_objects){
     var to_move = [],
         i_limit = 0,

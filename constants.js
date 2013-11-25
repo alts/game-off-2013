@@ -21,6 +21,11 @@
     K_LEFT: 37,
     K_RIGHT: 39,
 
-    K_SPACE: 32
+    K_SPACE: 32,
+    //directions
+    D_LEFT: 0,
+    D_UP: 1,
+    D_RIGHT: 2,
+    D_DOWN: 3
   };
 })();

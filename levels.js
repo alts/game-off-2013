@@ -304,6 +304,24 @@
     },
 
     {
+      title: 'NEEDS DOORS',
+      objs: [
+        ['~wizard', 11, 7],
+        ['~door', 9, 9]
+      ],
+      walls: [
+        5, 4, 12, 0,
+        5, 13, 12, 0,
+        9, 5, 0, 3,
+        9, 10, 0, 2,
+        13, 5, 0, 7,
+        5, 5, 0, 7,
+        17, 5, 0, 7
+      ],
+      win: function(){}
+    },
+
+    {
       title: 'NEEDS TO DO SOMETHING',
       objs: [
         ['~wizard', 11, 7],

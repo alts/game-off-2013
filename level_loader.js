@@ -7,7 +7,8 @@
         '~crate':  require('crate.js'),
         '~doodad': require('doodad.js'),
         '~wall':   require('wall.js'),
-        '~key':    require('key.js')
+        '~key':    require('key.js'),
+        '~door':   require('door.js')
       };
 
   return function(level_i) {

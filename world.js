@@ -24,8 +24,12 @@
     var obj;
     for (var i = 0, l = this.objects.length; i < l; i++) {
       obj = this.objects[i];
-      obj.draw();
+      if (obj != this.player_character) {
+        obj.draw();
+      }
     }
+
+    this.player_character.draw();
   };
 
   world.satisfies_win_condition = function() {
@@ -56,26 +60,28 @@
 
     for (var i = 0, l = this.objects.length; i < l; i++) {
       obj = this.objects[i];
-      if (obj.x == p_x) {
-        // same column
-        if (obj.y < p_y) {
-          if (!targets[1] || obj.y > targets[1].y) {
-            targets[1] = obj;
+      if (obj.can_be_enchanted()) {
+        if (obj.x == p_x) {
+          // same column
+          if (obj.y < p_y) {
+            if (!targets[1] || obj.y > targets[1].y) {
+              targets[1] = obj;
+            }
+          } else if (obj.y > p_y) {
+            if (!targets[3] || obj.y < targets[3].y) {
+              targets[3] = obj;
+            }
           }
-        } else if (obj.y > p_y) {
-          if (!targets[3] || obj.y < targets[3].y) {
-            targets[3] = obj;
-          }
-        }
-      } else if (obj.y == p_y) {
-        // same row
-        if (obj.x < p_x) {
-          if (!targets[0] || obj.x > targets[0].x) {
-            targets[0] = obj;
-          }
-        } else if (obj.x > p_x) {
-          if (!targets[2] || obj.x < targets[2].x) {
-            targets[2] = obj;
+        } else if (obj.y == p_y) {
+          // same row
+          if (obj.x < p_x) {
+            if (!targets[0] || obj.x > targets[0].x) {
+              targets[0] = obj;
+            }
+          } else if (obj.x > p_x) {
+            if (!targets[2] || obj.x < targets[2].x) {
+              targets[2] = obj;
+            }
           }
         }
       }
@@ -111,6 +117,13 @@
             // prevent character position change
             return false;
           }
+        }
+      }
+
+      for (var i = 0, l = this.objects.length; i < l; i++) {
+        obj = this.objects[i];
+        if (this.player_character.compare_position(obj) == 0) {
+          obj.on_exit(this.player_character, dx, dy, this.objects);
         }
       }
 

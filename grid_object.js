@@ -25,6 +25,8 @@
     // noop, effectively prevent collisions
   };
 
+  grid_object.on_exit = function(player, dx, dy, objects){};
+
   grid_object.enchant = function() {
     this.glowing = true;
   };
@@ -72,6 +74,11 @@
         return 0;
       }
     }
+  };
+
+  grid_object.can_be_enchanted = function() {
+    // object, by default, are enchantable
+    return true;
   };
 
   return grid_object;
