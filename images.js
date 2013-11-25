@@ -5,6 +5,10 @@
     return d;
   };
 
+  var wizards = load_image('wizards2.png'),
+      cards = load_image('cards.png'),
+      vases = load_image('vases.png');
+
   return {
     draw: function (ctx, path, x, y, frame) {
       if (frame) {
@@ -28,12 +32,14 @@
     },
 
     'food.png': [load_image('food.png'), 0, 0],
-    'card_one.png': [load_image('cards.png'), 0, 0],
-    'card_two.png': [load_image('cards.png'), 32, 0],
-    'card_three.png': [load_image('cards.png'), 64, 0],
-    'card_four.png': [load_image('cards.png'), 96, 0],
-    'wizards2.png#0': [load_image('wizards2.png'), 0, 0],
-    'wizards2.png#1': [load_image('wizards2.png'), 32, 0],
-    'crate.png': [load_image('crate.png'), 0, 0]
+    'card_one.png': [cards, 0, 0],
+    'card_two.png': [cards, 32, 0],
+    'card_three.png': [cards, 64, 0],
+    'card_four.png': [cards, 96, 0],
+    'wizards2.png#0': [wizards, 0, 0],
+    'wizards2.png#1': [wizards, 32, 0],
+    'crate.png': [load_image('crate.png'), 0, 0],
+    'vase.png': [vases, 0, 0],
+    'broken_vase.png': [vases, 32, 0]
   };
 })();
