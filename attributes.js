@@ -1,20 +1,10 @@
 (function(){
   var attributes = {},
-      comparators = require('comparators.js');
-
-  // collisions
-  attributes.fixed = function(other, dx, dy, world_objects){
-    // other object doesn't move, nor self
-    return false;
-  };
-
-  attributes.passthrough = function(other, dx, dy, world_objects) {
-    // other object moves, self doesn't
-    return true;
-  };
+      comparators = require('comparators.js'),
+      noop = function(){};
 
   attributes.standard_collision = function(other, dx, dy, world_objects) {
-    return this.is_passable();
+    return [this.is_passable(), noop];
   };
 
   attributes.pushable = function(other, dx, dy, world_objects){
@@ -60,7 +50,7 @@
           break;
         }
         if (!obj.is_pushable) {
-          return false;
+          return [false, noop];
         }
 
         s = obj[key];
@@ -75,7 +65,15 @@
         to_move[i].y += dy;
       }
     }
-    return true;
+
+    return [true, function(){
+      for (var i = 0; i < i_limit; i++) {
+        if (!to_move[i].is_passable()) {
+          to_move[i].x -= dx;
+          to_move[i].y -= dy;
+        }
+      }
+    }];
   };
 
   attributes.is_pushable = function(obj) {
@@ -86,7 +84,10 @@
   attributes.consumable = function(player, dx, dy, world_objects) {
     this.dead = true;
     player.consume(this.type);
-    return true;
+    return [true, function(){
+      this.dead = false;
+      player.unconsume(this.type);
+    }];
   };
 
   return attributes;

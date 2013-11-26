@@ -43,12 +43,17 @@
   };
 
   door.on_collide = function (other, dx, dy, world_objects) {
+    var open_state = this.is_open;
     this.state_after_true_exit = !this.is_open;
     this.is_open = true;
 
     this.entered_from_direction = deltas_to_direction(dx, dy);
 
-    return grid_object.on_collide.call(this, other, dx, dy, world_objects);
+    var resp = grid_object.on_collide.call(this, other, dx, dy, world_objects);
+    resp[1] = function(){
+      this.is_open = open_state;
+    };
+    return resp;
   };
 
   door.is_passable = function(){

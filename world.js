@@ -105,16 +105,20 @@
 
       var tx = this.player_character.x + dx,
           ty = this.player_character.y + dy,
+          rollbacks = [],
+          valid,
           obj;
 
       for (var i = 0, l = this.objects.length; i < l; i++) {
         obj = this.objects[i];
         if (obj.x == tx && obj.y == ty) {
-          if (obj.on_collide(this.player_character, dx, dy, this.objects)) {
-            // allow character position change
-            break;
-          } else {
+          valid = obj.on_collide(this.player_character, dx, dy, this.objects);
+          rollbacks.push(valid[1]);
+          if (!valid[0]) {
             // prevent character position change
+            for (var j = 0, ll = rollbacks.length; j < ll; j++) {
+              rollbacks[j]();
+            }
             return false;
           }
         }

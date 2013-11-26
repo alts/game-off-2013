@@ -30,6 +30,13 @@
     this.consumed_map[consumable_type]++;
   };
 
+  wizard.unconsume = function(consumable_type) {
+    if (!this.consumed_map[consumable_type]) {
+      return;
+    }
+    this.consumed_map[consumable_type]--;
+  };
+
   wizard.num_consumed = function(consumable_type) {
     return this.consumed_map[consumable_type] || 0;
   };
