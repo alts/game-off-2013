@@ -32,7 +32,5 @@
     }
   };
 
-  doodad.on_collide = attrs.fixed;
-
   return doodad;
 })();

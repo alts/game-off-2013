@@ -11,7 +11,11 @@
   attributes.passthrough = function(other, dx, dy, world_objects) {
     // other object moves, self doesn't
     return true;
-  }
+  };
+
+  attributes.standard_collision = function(other, dx, dy, world_objects) {
+    return this.is_passable();
+  };
 
   attributes.pushable = function(other, dx, dy, world_objects){
     var to_move = [],
@@ -51,19 +55,25 @@
     var s = this[key] - 1;
     for (var i = 0, l = to_move.length; i < l; i++) {
       obj = to_move[i];
-      if (Math.abs(obj[key] - s) > 1) {
-        break;
+      if (!obj.is_passable()) {
+        if (Math.abs(obj[key] - s) > 1) {
+          break;
+        }
+        if (!obj.is_pushable) {
+          return false;
+        }
+
+        s = obj[key];
       }
-      if (!obj.is_pushable) {
-        return false;
-      }
+
       i_limit++;
-      s = obj[key];
     }
 
     for (var i = 0; i < i_limit; i++) {
-      to_move[i].x += dx;
-      to_move[i].y += dy;
+      if (!to_move[i].is_passable()) {
+        to_move[i].x += dx;
+        to_move[i].y += dy;
+      }
     }
     return true;
   };

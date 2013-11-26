@@ -1,6 +1,7 @@
 (function(){
   var grid_object = {},
-      C = require('constants.js');
+      attrs       = require('attributes.js'),
+      C           = require('constants.js');
 
   grid_object.init_from_repr = function(repr) {
     this.x = repr[1];
@@ -21,9 +22,7 @@
     return C.BUFFER_HEIGHT + this.y * C.UNIT_SIZE;
   };
 
-  grid_object.on_collide = function(player, dx, dy, objects) {
-    // noop, effectively prevent collisions
-  };
+  grid_object.on_collide = attrs.standard_collision;
 
   grid_object.on_exit = function(player, dx, dy, objects){};
 
@@ -79,6 +78,10 @@
   grid_object.can_be_enchanted = function() {
     // object, by default, are enchantable
     return true;
+  };
+
+  grid_object.is_passable = function() {
+    return false;
   };
 
   return grid_object;

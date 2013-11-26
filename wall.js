@@ -25,7 +25,5 @@
     );
   };
 
-  wall.on_collide = attrs.fixed;
-
   return wall;
 })();

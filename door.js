@@ -48,7 +48,11 @@
 
     this.entered_from_direction = deltas_to_direction(dx, dy);
 
-    return attrs.passthrough(other, dx, dy, world_objects);
+    return grid_object.on_collide.call(this, other, dx, dy, world_objects);
+  };
+
+  door.is_passable = function(){
+    return this.is_open;
   };
 
   door.on_exit = function (other, dx, dy, world_objects) {
