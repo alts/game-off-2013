@@ -367,8 +367,10 @@
     {
       title: 'NEEDS TO UNDO A HUGE MISTAKE',
       objs: [
-        ['~wizard', 11, 7, 'food.png']
+        ['~wizard', 11, 7, 'food.png'],
+        ['~wizard', 13, 6]
       ],
+      controllables: 1,
       walls: [
         6, 4, 10, 0,
         6, 5, 0, 5,

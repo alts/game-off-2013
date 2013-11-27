@@ -260,6 +260,13 @@
       }
     }
 
+    for (var i = this.player_characters.length - 1, l = -1; i > l; i--) {
+      obj = this.player_characters[i];
+      if (obj.dead) {
+        this.player_characters.splice(i, 1);
+      }
+    }
+
     if (this.satisfies_win_condition()) {
       this.did_win = true;
     }
