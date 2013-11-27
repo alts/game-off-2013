@@ -75,6 +75,18 @@
     }
   };
 
+  grid_object.distance_from = function(other, direction) {
+    if (direction == 0) {
+      return other.x - this.x;
+    } else if (direction == 2) {
+      return this.x - other.x;
+    } else if (direction == 1) {
+      return other.y - this.y;
+    } else if (direction == 3) {
+      return this.y - other.y;
+    }
+  };
+
   grid_object.can_be_enchanted = function() {
     // object, by default, are enchantable
     return true;

@@ -21,7 +21,7 @@
       ],
       walls: starter_walls,
       win: function(world) {
-        return world.player_character.num_consumed('~food') == 1;
+        return world.player_characters[0].num_consumed('~food') == 1;
       }
     },
 
@@ -34,7 +34,7 @@
       ],
       walls: starter_walls,
       win: function(world) {
-        return world.player_character.num_consumed('~food') > 1;
+        return world.player_characters[0].num_consumed('~food') > 1;
       }
     },
 
@@ -46,7 +46,7 @@
       ],
       walls: standard_walls,
       win: function(world) {
-        var player = world.player_character;
+        var player = world.player_characters[0];
         return (player.x == 0 || player.x == 24 ||
                 player.y == 0 || player.y == 15);
       }
@@ -299,7 +299,7 @@
         10, 14, 2, 0
       ],
       win: function(world) {
-        return world.player_character.num_consumed('~key') == 1;
+        return world.player_characters[0].num_consumed('~key') == 1;
       }
     },
 
@@ -360,6 +360,20 @@
         5, 6, 1, 0,
         5, 7, 0, 1,
         6, 8, 0, 0
+      ],
+      win: function(){}
+    },
+
+    {
+      title: 'NEEDS TO UNDO A HUGE MISTAKE',
+      objs: [
+        ['~wizard', 11, 7, 'food.png']
+      ],
+      walls: [
+        6, 4, 10, 0,
+        6, 5, 0, 5,
+        7, 10, 9, 0,
+        16, 5, 0, 4
       ],
       win: function(){}
     },

@@ -45,7 +45,7 @@
       return;
     }
 
-    if (this.world.player_character.is_casting) {
+    if (this.world.is_casting) {
       if (code == C.K_UP) {
         this.world.cast_magic_up();
       } else if (code == C.K_DOWN) {
@@ -68,7 +68,11 @@
     }
 
     if (code == C.K_SPACE) {
-      this.world.start_magic();
+      if (this.world.is_casting) {
+        this.world.stop_magic();
+      } else {
+        this.world.start_magic();
+      }
     }
   };
 

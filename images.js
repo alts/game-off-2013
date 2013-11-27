@@ -40,6 +40,9 @@
     'wizards2.png#1': [wizards, 32, 0],
     'crate.png': [load_image('crate.png'), 0, 0],
     'vase.png': [vases, 0, 0],
-    'broken_vase.png': [vases, 32, 0]
+    'broken_vase.png': [vases, 32, 0],
+    // half width
+    'wand_normal.png': [wizards, 64, 0],
+    'wand_raised.png': [wizards, 80, 0],
   };
 })();

@@ -13,6 +13,7 @@
 
   return function(level_i) {
     var level,
+        controllables,
         current_world,
         obj_repr,
         obj_symbol,
@@ -26,6 +27,7 @@
     current_world = Object.create(world);
 
     current_world.init(level.title, level.win);
+    controllables = level.controllables || 0;
 
     for (var i = 0, l = level.objs.length; i < l; i++) {
       obj_repr = level.objs[i];
@@ -35,7 +37,7 @@
       obj.init_from_repr(obj_repr);
       current_world.add_object(obj);
 
-      if (i === 0) {
+      if (i <= controllables) {
         current_world.register_player_character(obj);
       }
     }

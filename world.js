@@ -6,10 +6,10 @@
 
     this.title = title;
     this.win_condition = win_condition;
-    this.player_character = null;
-    this.potential_targets = [null, null, null, null];
-    this.highlighted_targets = [null, null];
+    this.player_characters = [];
+    this.highlighted_targets = null;
     this.did_win = false;
+    this.is_casting = false;
   };
 
   world.add_object = function(obj) {
@@ -17,19 +17,30 @@
   };
 
   world.register_player_character = function(obj) {
-    this.player_character = obj;
+    this.player_characters.push(obj);
+  };
+
+  world.is_player_character = function(obj) {
+    for (var i = 0, l = this.player_characters.length; i < l; i++) {
+      if (obj == this.player_characters[i]) {
+        return true;
+      }
+    }
+    return false;
   };
 
   world.draw = function() {
     var obj;
     for (var i = 0, l = this.objects.length; i < l; i++) {
       obj = this.objects[i];
-      if (obj != this.player_character) {
+      if (!this.is_player_character(obj)) {
         obj.draw();
       }
     }
 
-    this.player_character.draw();
+    for (var i = 0, l = this.player_characters.length; i < l; i++) {
+      this.player_characters[i].draw();
+    }
   };
 
   world.satisfies_win_condition = function() {
@@ -37,12 +48,21 @@
   };
 
   world.start_magic = function() {
-    var magic_is_active = this.player_character.toggle_casting();
-    if (magic_is_active) {
-      this.remember_targets();
-    } else {
-      this.forget_targets();
+    for (var i = 0, l = this.player_characters.length; i < l; i++) {
+      if (!this.player_characters[i].is_casting) {
+        this.player_characters[i].toggle_casting();
+      }
     }
+    this.is_casting = true;
+  };
+
+  world.stop_magic = function() {
+    for (var i = 0, l = this.player_characters.length; i < l; i++) {
+      if (this.player_characters[i].is_casting) {
+        this.player_characters[i].toggle_casting();
+      }
+    }
+    this.is_casting = false;
   };
 
   var between = function(x, a, b) {
@@ -88,51 +108,72 @@
     }
   };
 
-  world.forget_targets = function() {
-    for (var i = 0; i < 4; i++) {
-      this.potential_targets[i] = null;
+  world.find_target = function(caster, direction_index) {
+    var distance = 100,
+        target = null,
+        test_distance,
+        obj;
+
+    for (var i = 0, l = this.objects.length; i < l; i++) {
+      obj = this.objects[i];
+      if (!obj.can_be_enchanted()) {
+        continue;
+      }
+
+      if (direction_index + 1 == caster.compare_position(obj)) {
+        test_distance = obj.distance_from(caster, direction_index);
+        if (test_distance < distance) {
+          distance = test_distance;
+          target = obj;
+        }
+      }
     }
-    for (var i = 0; i < 2; i++) {
+
+    return target;
+  };
+
+  world.forget_targets = function() {
+    for (var i = 0, l = this.highlighted_targets.length; i < l; i++) {
       this.highlighted_targets[i] = null;
     }
   };
 
-  move_char = function(dx, dy) {
+  var move_char = function(dx, dy) {
     return function() {
-      if (this.player_character.is_casting) {
-        return false;
-      }
+      for (var i = 0, l = this.player_characters.length; i < l; i++) {
+        (function(that, caster) {
+          var tx = caster.x + dx,
+              ty = caster.y + dy,
+              rollbacks = [],
+              valid,
+              obj;
 
-      var tx = this.player_character.x + dx,
-          ty = this.player_character.y + dy,
-          rollbacks = [],
-          valid,
-          obj;
-
-      for (var i = 0, l = this.objects.length; i < l; i++) {
-        obj = this.objects[i];
-        if (obj.x == tx && obj.y == ty) {
-          valid = obj.on_collide(this.player_character, dx, dy, this.objects);
-          rollbacks.push(valid[1]);
-          if (!valid[0]) {
-            // prevent character position change
-            for (var j = 0, ll = rollbacks.length; j < ll; j++) {
-              rollbacks[j]();
+          for (var i = 0, l = that.objects.length; i < l; i++) {
+            obj = that.objects[i];
+            if (obj.x == tx && obj.y == ty) {
+              valid = obj.on_collide(caster, dx, dy, that.objects);
+              rollbacks.push(valid[1]);
+              if (!valid[0]) {
+                // prevent character position change
+                for (var j = 0, ll = rollbacks.length; j < ll; j++) {
+                  rollbacks[j]();
+                }
+                return false;
+              }
             }
-            return false;
           }
-        }
-      }
 
-      for (var i = 0, l = this.objects.length; i < l; i++) {
-        obj = this.objects[i];
-        if (this.player_character.compare_position(obj) == 0) {
-          obj.on_exit(this.player_character, dx, dy, this.objects);
-        }
-      }
+          for (var i = 0, l = that.objects.length; i < l; i++) {
+            obj = that.objects[i];
+            if (caster.compare_position(obj) == 0) {
+              obj.on_exit(caster, dx, dy, that.objects);
+            }
+          }
 
-      this.player_character.x = tx;
-      this.player_character.y = ty;
+          caster.x = tx;
+          caster.y = ty;
+        })(this, this.player_characters[i]);
+      }
       this.on_step();
     };
   };
@@ -144,16 +185,32 @@
 
   var cast_magic = function(direction_index) {
     return function() {
-      var target = this.potential_targets[direction_index];
-
-      if (!target) {
-        return false;
+      var targets = [],
+          any_hit = false,
+          caster;
+      for (var i = 0, l = this.player_characters.length; i < l; i++) {
+        caster = this.player_characters[i];
+        targets.push(this.find_target(caster, direction_index));
       }
 
-      if (this.highlighted_targets[0] === null) {
-        return this.select_source(target);
+      if (this.highlighted_targets) {
+        for (var i = 0, l = targets.length; i < l; i++) {
+          if (targets[i] && this.highlighted_targets[i]) {
+            this.transmute_objects(this.highlighted_targets[i], targets[i]);
+          } else if (this.highlighted_targets[i] && !targets[i]) {
+            this.highlighted_targets.dechant();
+          }
+        }
+        this.highlighted_targets = null;
+        this.on_step();
+        this.stop_magic();
       } else {
-        return this.select_drain(target);
+        this.highlighted_targets = targets;
+        for (var i = 0, l = targets.length; i < l; i++) {
+          if (targets[i]) {
+            targets[i].enchant();
+          }
+        }
       }
     }
   };
@@ -163,9 +220,16 @@
   world.cast_magic_up    = cast_magic(1);
   world.cast_magic_down  = cast_magic(3);
 
-  world.select_source = function(target) {
-    this.highlighted_targets[0] = target;
-    target.enchant();
+  world.transmute_objects = function (source, drain) {
+    source.dechant();
+
+    var copy = Object.create(Object.getPrototypeOf(source));
+    copy.init_from_repr(source.to_repr());
+    copy.x = drain.x;
+    copy.y = drain.y;
+
+    this.add_object(copy);
+    drain.dead = true;
     return true;
   };
 
