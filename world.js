@@ -112,11 +112,13 @@
     var distance = 100,
         target = null,
         test_distance,
+        enchant_target,
         obj;
 
     for (var i = 0, l = this.objects.length; i < l; i++) {
       obj = this.objects[i];
-      if (!obj.can_be_enchanted()) {
+      enchant_target = obj.enchant_target(caster, direction_index);
+      if (!enchant_target) {
         continue;
       }
 
@@ -124,7 +126,7 @@
         test_distance = obj.distance_from(caster, direction_index);
         if (test_distance < distance) {
           distance = test_distance;
-          target = obj;
+          target = enchant_target;
         }
       }
     }
@@ -196,7 +198,11 @@
       if (this.highlighted_targets) {
         for (var i = 0, l = targets.length; i < l; i++) {
           if (targets[i] && this.highlighted_targets[i]) {
-            this.transmute_objects(this.highlighted_targets[i], targets[i]);
+            this.transmute_objects(
+              this.highlighted_targets[i],
+              targets[i],
+              targets[i] == this.player_characters[i]
+            );
           } else if (this.highlighted_targets[i] && !targets[i]) {
             this.highlighted_targets[i].dechant();
           }
@@ -220,21 +226,29 @@
   world.cast_magic_up    = cast_magic(1);
   world.cast_magic_down  = cast_magic(3);
 
-  world.transmute_objects = function (source, drain) {
+  world.transmute_objects = function (source, drain, did_reflect) {
     source.dechant();
 
-    var copy = Object.create(Object.getPrototypeOf(source));
-    copy.init_from_repr(source.to_repr());
-    copy.x = drain.x;
-    copy.y = drain.y;
+    if (!did_reflect) {
+      var copy = Object.create(Object.getPrototypeOf(source));
+      copy.init_from_repr(source.to_repr());
+      copy.x = drain.x;
+      copy.y = drain.y;
 
-    this.add_object(copy);
+      this.add_object(copy);
 
-    if (this.is_player_character(source)) {
-      this.register_player_character(copy);
+      if (this.is_player_character(source)) {
+        this.register_player_character(copy);
+      }
+
+      drain.dead = true;
+    } else {
+      if (source.type == '~wizard') {
+        drain.special_image = null;
+      } else {
+        drain.special_image = source.get_image();
+      }
     }
-
-    drain.dead = true;
     return true;
   };
 

@@ -7,11 +7,12 @@
       food        = Object.create(grid_object);
 
   food.type = '~food';
+  food.image = 'food.png';
 
   food.draw = function() {
     images.draw(
       jerk.ctx,
-      'food.png',
+      this.image,
       this.true_x(), this.true_y()
     );
   };

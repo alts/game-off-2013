@@ -6,6 +6,7 @@
       wizard = Object.create(grid_object);
 
   wizard.type = '~wizard';
+  wizard.image = 'wizards2.png#0';
 
   wizard.init_from_repr = function(repr) {
     grid_object.init_from_repr.call(this, repr);

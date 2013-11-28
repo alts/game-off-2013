@@ -22,6 +22,10 @@
     return C.BUFFER_HEIGHT + this.y * C.UNIT_SIZE;
   };
 
+  grid_object.get_image = function() {
+    return this.image;
+  };
+
   grid_object.on_collide = attrs.standard_collision;
 
   grid_object.on_exit = function(player, dx, dy, objects){};
@@ -87,9 +91,9 @@
     }
   };
 
-  grid_object.can_be_enchanted = function() {
+  grid_object.enchant_target = function(caster, direction) {
     // object, by default, are enchantable
-    return true;
+    return this;
   };
 
   grid_object.is_passable = function() {

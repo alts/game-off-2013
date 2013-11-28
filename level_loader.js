@@ -8,7 +8,8 @@
         '~doodad': require('doodad.js'),
         '~wall':   require('wall.js'),
         '~key':    require('key.js'),
-        '~door':   require('door.js')
+        '~door':   require('door.js'),
+        '~mirror': require('mirror.js')
       };
 
   return function(level_i) {

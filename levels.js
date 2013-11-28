@@ -388,16 +388,19 @@
       title: 'NEEDS TO UNDO A HUGE MISTAKE',
       objs: [
         ['~wizard', 11, 7, 'food.png'],
-        ['~wizard', 13, 6]
+        ['~mirror', 9, 5],
+        ['~wizard', 15, 5]
       ],
-      controllables: 1,
       walls: [
         6, 4, 10, 0,
         6, 5, 0, 5,
         7, 10, 9, 0,
         16, 5, 0, 4
       ],
-      win: function(){}
+      win: function(world){
+        return (world.player_characters.length == 1 &&
+                world.player_characters[0].special_image == null);
+      }
     },
 
     {
