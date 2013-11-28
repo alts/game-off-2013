@@ -365,6 +365,26 @@
     },
 
     {
+      title: 'NEEDS TO ELIMINATE THE CLONES',
+      objs: [
+        ['~wizard', 10, 6],
+        ['~wizard', 12, 8],
+        ['~wizard', 12, 6],
+        ['~wizard', 10, 8]
+      ],
+      controllables: 3,
+      walls: [
+        6, 4, 10, 0,
+        6, 5, 0, 5,
+        7, 10, 9, 0,
+        16, 5, 0, 4
+      ],
+      win: function(world){
+        return world.player_characters.length == 1;
+      }
+    },
+
+    {
       title: 'NEEDS TO UNDO A HUGE MISTAKE',
       objs: [
         ['~wizard', 11, 7, 'food.png'],

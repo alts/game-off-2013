@@ -198,7 +198,7 @@
           if (targets[i] && this.highlighted_targets[i]) {
             this.transmute_objects(this.highlighted_targets[i], targets[i]);
           } else if (this.highlighted_targets[i] && !targets[i]) {
-            this.highlighted_targets.dechant();
+            this.highlighted_targets[i].dechant();
           }
         }
         this.highlighted_targets = null;
@@ -229,6 +229,11 @@
     copy.y = drain.y;
 
     this.add_object(copy);
+
+    if (this.is_player_character(source)) {
+      this.register_player_character(copy);
+    }
+
     drain.dead = true;
     return true;
   };
