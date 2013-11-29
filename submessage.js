@@ -1,13 +1,13 @@
 (function(){
-  var jerk       = require('jerk.js'),
+  var image_font = require('image_font.js'),
       C          = require('constants.js'),
       submessage = {};
 
   submessage.draw = function() {
-    var ctx = jerk.ctx;
-
-    ctx.fillStyle = '#fff';
-    ctx.fillText('[space] to continue', 10, C.TEXT_AREA_Y + 10);
+    return image_font.print_centered(
+      '[SPACE] TO CONTINUE',
+      C.SCREEN_WIDTH / 2, C.TEXT_AREA_Y + 10
+    );
   };
 
   return submessage;

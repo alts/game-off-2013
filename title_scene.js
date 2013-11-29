@@ -28,7 +28,7 @@
     this.world.draw();
 
     if (this.world.did_win) {
-      this.level_title.draw('NEED SATISFIED!');
+      this.level_title.draw('NEED SATISFIED');
       submessage.draw();
     } else {
       this.level_title.draw(this.world.title);

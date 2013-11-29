@@ -1,12 +1,13 @@
 (function() {
-  var jerk = require('jerk.js'),
+  var image_font  = require('image_font.js'),
+      C           = require('constants.js'),
       level_title = {};
 
   level_title.draw = function(level_name) {
-    var ctx = jerk.ctx;
-
-    ctx.fillStyle = '#fff';
-    ctx.fillText('WIZARD ' + level_name, 10, 10);
+    return image_font.print_centered(
+      'WIZARD ' + level_name,
+      C.SCREEN_WIDTH / 2, 10
+    );
   };
 
   return level_title;
