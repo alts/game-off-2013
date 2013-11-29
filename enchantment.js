@@ -23,6 +23,7 @@
         line_unit = C.UNIT_SIZE / 3;
 
     ctx.strokeStyle = this._timer_to_color(timer);
+    ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.moveTo(x, y);
     ctx.lineTo(x + line_unit, y);
