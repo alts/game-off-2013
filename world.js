@@ -62,6 +62,7 @@
         this.player_characters[i].toggle_casting();
       }
     }
+    this.highlighted_targets = null;
     this.is_casting = false;
   };
 
