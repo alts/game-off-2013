@@ -98,7 +98,13 @@
 
   var move_char = function(dx, dy) {
     return function() {
-      for (var i = 0, l = this.player_characters.length; i < l; i++) {
+      var move_sorted = this.player_characters.sort(function(a, b) {
+        var ta = dx * a.x + dy * a.y,
+            tb = dx * b.x + dy * b.y;
+
+        return tb - ta;
+      });
+      for (var i = 0, l = move_sorted.length; i < l; i++) {
         (function(that, caster) {
           var tx = caster.x + dx,
               ty = caster.y + dy,
@@ -130,7 +136,7 @@
 
           caster.x = tx;
           caster.y = ty;
-        })(this, this.player_characters[i]);
+        })(this, move_sorted[i]);
       }
       this.on_step();
     };
