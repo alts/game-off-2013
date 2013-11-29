@@ -6,6 +6,7 @@
       wall        = Object.create(grid_object);
 
   wall.type = '~wall';
+  wall.image = 'wall.png';
 
   wall.init_from_repr = function(repr) {
     grid_object.init_from_repr.call(this, repr);
@@ -16,12 +17,10 @@
   };
 
   wall.draw = function() {
-    var ctx = jerk.ctx;
-
-    ctx.fillStyle = '#305';
-    ctx.fillRect(
-      this.true_x(), this.true_y(),
-      C.UNIT_SIZE, C.UNIT_SIZE
+    images.draw(
+      jerk.ctx,
+      this.image,
+      this.true_x(), this.true_y()
     );
   };
 

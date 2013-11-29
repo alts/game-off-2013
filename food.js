@@ -7,7 +7,7 @@
       food        = Object.create(grid_object);
 
   food.type = '~food';
-  food.image = 'food.png';
+  food.image = 'apple.png';
 
   food.draw = function() {
     images.draw(

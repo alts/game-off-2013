@@ -30,7 +30,7 @@
       objs: [
         ['~wizard', 10, 10],
         ['~food', 11, 6],
-        ['~doodad', 13, 8, 'chair.png']
+        ['~doodad', 13, 8, 'chair_right.png']
       ],
       walls: starter_walls,
       win: function(world) {
@@ -182,9 +182,9 @@
       title: 'NEEDS TO HIDE THE EVIDENCE',
       objs: [
         ['~wizard', 10, 7],
-        ['~doodad', 16, 4, 'body.png'],
-        ['~doodad', 15, 4, 'bloody_knife.png'],
-        ['~doodad', 14, 4, 'chair.png'],
+        ['~doodad', 16, 4, 'corpse.png'],
+        ['~doodad', 15, 4, 'weapon.png'],
+        ['~doodad', 14, 4, 'chair_right.png'],
         ['~crate', 14, 5],
         ['~crate', 15, 5],
         ['~crate', 16, 5]
@@ -401,6 +401,41 @@
         return (world.player_characters.length == 1 &&
                 world.player_characters[0].special_image == null);
       }
+    },
+
+    {
+      title: 'NEEDS FRIENDS',
+      objs: [
+        ['~wizard', 11, 7],
+        ['~mirror', 9, 5],
+        ['~doodad', 14, 7, 'cake.png'],
+        ['~doodad', 13, 7, 'chair_right.png'],
+        ['~doodad', 15, 7, 'chair_left.png'],
+        ['~doodad', 14, 6, 'chair_down.png']
+      ],
+      walls: [
+        7, 4, 10, 0,
+        7, 5, 0, 5,
+        8, 10, 9, 0,
+        17, 5, 0, 4
+      ],
+      win: function(){}
+    },
+
+    {
+      title: 'NEEDS TO ESCAPE THIS TOMB',
+      objs: [
+        ['~wizard', 10, 6],
+        ['~wizard', 12, 8]
+      ],
+      controllables: 1,
+      walls: [
+        5, 3, 12, 1,
+        5, 5, 1, 6,
+        7, 10, 10, 1,
+        16, 5, 1, 4
+      ],
+      win: function(){}
     },
 
     {

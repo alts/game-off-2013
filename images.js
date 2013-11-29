@@ -7,7 +7,8 @@
 
   var wizards = load_image('wizards2.png'),
       cards = load_image('cards.png'),
-      vases = load_image('vases.png');
+      vases = load_image('vases.png'),
+      crime = load_image('crime.png');
 
   return {
     draw: function (ctx, path, x, y, frame) {
@@ -31,7 +32,7 @@
       return true;
     },
 
-    'food.png': [load_image('food.png'), 0, 0],
+    'apple.png': [load_image('apple.png'), 0, 0],
     'card_one.png': [cards, 0, 0],
     'card_two.png': [cards, 32, 0],
     'card_three.png': [cards, 64, 0],
@@ -44,5 +45,8 @@
     // half width
     'wand_normal.png': [wizards, 64, 0],
     'wand_raised.png': [wizards, 80, 0],
+    'corpse.png': [crime, 0, 0],
+    'weapon.png': [crime, 32, 0],
+    'wall.png': [load_image('wall.png'), 0, 0]
   };
 })();
