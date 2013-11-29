@@ -28,6 +28,7 @@
     current_world = Object.create(world);
 
     current_world.init(level.title, level.win);
+    current_world.messages = level.submessages || [];
     controllables = level.controllables || 0;
 
     for (var i = 0, l = level.objs.length; i < l; i++) {

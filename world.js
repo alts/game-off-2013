@@ -44,7 +44,14 @@
     }
 
     if (this.did_win) {
-      submessage.draw();
+      submessage.print('[SPACE] TO CONTINUE');
+    } else {
+      for (var i = 0, l = this.messages.length; i < l; i += 2) {
+        if (this.messages[i+1](this)) {
+          submessage.print(this.messages[i]);
+          break;
+        }
+      }
     }
   };
 

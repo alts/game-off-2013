@@ -3,9 +3,9 @@
       C          = require('constants.js'),
       submessage = {};
 
-  submessage.draw = function() {
+  submessage.print = function(text) {
     return image_font.print_centered(
-      '[SPACE] TO CONTINUE',
+      text,
       C.SCREEN_WIDTH / 2, C.TEXT_AREA_Y + 10
     );
   };

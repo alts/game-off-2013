@@ -1,9 +1,9 @@
 (function(){
   var starter_walls = [
-        9, 5, 4, 0,
-        8, 5, 0, 5,
-        8, 11, 5, 0,
-        14, 5, 0, 6,
+        10, 5, 4, 0,
+        9, 5, 0, 5,
+        9, 11, 5, 0,
+        15, 5, 0, 6,
       ],
       standard_walls = [
         1, 1, 22, 0,
@@ -16,26 +16,43 @@
     {
       title: 'NEEDS FOOD',
       objs: [
-        ['~wizard', 10, 10],
-        ['~food', 11, 6]
+        ['~wizard', 11, 10],
+        ['~food', 12, 6]
       ],
       walls: starter_walls,
       win: function(world) {
         return world.player_characters[0].num_consumed('~food') == 1;
-      }
+      },
+      submessages: [
+        'USE ARROW KEYS TO MOVE',
+        function(world) { return true; }
+      ]
     },
 
     {
       title: 'NEEDS FOOD BADLY',
       objs: [
-        ['~wizard', 10, 10],
-        ['~food', 11, 6],
-        ['~doodad', 13, 8, 'chair_right.png']
+        ['~wizard', 11, 10],
+        ['~food', 12, 6],
+        ['~doodad', 14, 8, 'chair_right.png']
       ],
       walls: starter_walls,
       win: function(world) {
         return world.player_characters[0].num_consumed('~food') > 1;
-      }
+      },
+      submessages: [
+        'SELECT ANOTHER TARGET WITH THE ARROW KEYS',
+        function(world) {
+          return (world.player_characters[0].is_casting &&
+                  world.highlighted_targets);
+        },
+        'SELECT A TARGET WITH THE ARROW KEYS',
+        function(world) {
+          return world.player_characters[0].is_casting;
+        },
+        'START CASTING MAGIC BY PRESSING [SPACE]',
+        function(world) { return true; }
+      ]
     },
 
     {
