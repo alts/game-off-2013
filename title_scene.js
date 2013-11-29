@@ -57,6 +57,11 @@
       return;
     }
 
+    if (code == C.K_R) {
+      this.reload();
+      return
+    }
+
     if (this.world.is_casting) {
       if (code == C.K_UP) {
         this.world.cast_magic_up();

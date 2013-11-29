@@ -20,6 +20,7 @@
     K_DOWN: 40,
     K_LEFT: 37,
     K_RIGHT: 39,
+    K_R: 82,
 
     K_SPACE: 32,
     //directions
