@@ -1,6 +1,7 @@
 (function(){
   var submessage  = require('submessage.js'),
       enchantment = require('enchantment.js'),
+      poof        = require('poof.js'),
       world = {};
 
   world.init = function(title, win_condition) {
@@ -10,6 +11,7 @@
     this.win_condition = win_condition;
     this.player_characters = [];
     this.highlighted_targets = null;
+    this.poofs = null;
     this.did_win = false;
     this.is_casting = false;
   };
@@ -63,6 +65,21 @@
 
     for (var i = 0, l = this.highlighted_targets.length; i < l; i++) {
       enchantment.draw_for_obj(this.highlighted_targets[i], timer);
+    }
+  };
+
+  world.draw_poofs = function() {
+    var loc;
+
+    if (this.poofs) {
+      if (this.poofs.time && this.poofs.time >= 300) {
+        this.poofs = null;
+      } else {
+        for (var i = 0, l = this.poofs.locations.length; i < l; i++) {
+          loc = this.poofs.locations[i];
+          poof.draw_at(loc[0], loc[1], Math.floor(this.poofs.time / 100));
+        }
+      }
     }
   };
 
@@ -181,6 +198,9 @@
       }
 
       if (this.highlighted_targets) {
+        this.poofs = {
+          locations: []
+        };
         for (var i = 0, l = targets.length; i < l; i++) {
           if (targets[i] && this.highlighted_targets[i]) {
             this.transmute_objects(
@@ -188,6 +208,7 @@
               targets[i],
               targets[i] == this.player_characters[i]
             );
+            this.poofs.locations.push([targets[i].true_x(), targets[i].true_y()]);
           } else if (this.highlighted_targets[i] && !targets[i]) {
             this.highlighted_targets[i].dechant();
           }

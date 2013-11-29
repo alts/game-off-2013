@@ -35,6 +35,7 @@
     }
 
     this.world.draw_enchantments(this.clock * 255 * 3 / 2000);
+    this.world.draw_poofs();
   };
 
   scene.update = function(dt) {
@@ -44,6 +45,13 @@
     }
     if (this.clock > 2000) {
       this.clock = this.clock % 2000;
+    }
+    if (this.world.poofs) {
+      if (this.world.poofs.time == null) {
+        this.world.poofs.time = 0;
+      } else {
+        this.world.poofs.time += dt;
+      }
     }
   };
 

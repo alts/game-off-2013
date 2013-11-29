@@ -8,11 +8,12 @@
   var wizards = load_image('wizards2.png'),
       cards = load_image('cards.png'),
       vases = load_image('vases.png'),
-      crime = load_image('crime.png');
+      crime = load_image('crime.png'),
+      poof  = load_image('poof.png');
 
   return {
     draw: function (ctx, path, x, y, frame) {
-      if (frame) {
+      if (frame != null) {
         path = path + '#' + frame;
       }
       var image_data = this[path];
@@ -47,6 +48,9 @@
     'wand_raised.png': [wizards, 80, 0],
     'corpse.png': [crime, 0, 0],
     'weapon.png': [crime, 32, 0],
-    'wall.png': [load_image('wall.png'), 0, 0]
+    'wall.png': [load_image('wall.png'), 0, 0],
+    'poof.png#0': [poof, 0, 0],
+    'poof.png#1': [poof, 32, 0],
+    'poof.png#2': [poof, 64, 0],
   };
 })();
