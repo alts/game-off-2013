@@ -70,45 +70,6 @@
     return (x < a && x > b);
   }
 
-  world.remember_targets = function() {
-    var p_x = this.player_character.x,
-        p_y = this.player_character.y,
-        targets = this.potential_targets,
-        obj;
-
-    // targets:
-    // [left, up, right, down]
-
-    for (var i = 0, l = this.objects.length; i < l; i++) {
-      obj = this.objects[i];
-      if (obj.can_be_enchanted()) {
-        if (obj.x == p_x) {
-          // same column
-          if (obj.y < p_y) {
-            if (!targets[1] || obj.y > targets[1].y) {
-              targets[1] = obj;
-            }
-          } else if (obj.y > p_y) {
-            if (!targets[3] || obj.y < targets[3].y) {
-              targets[3] = obj;
-            }
-          }
-        } else if (obj.y == p_y) {
-          // same row
-          if (obj.x < p_x) {
-            if (!targets[0] || obj.x > targets[0].x) {
-              targets[0] = obj;
-            }
-          } else if (obj.x > p_x) {
-            if (!targets[2] || obj.x < targets[2].x) {
-              targets[2] = obj;
-            }
-          }
-        }
-      }
-    }
-  };
-
   world.find_target = function(caster, direction_index) {
     var distance = 100,
         target = null,
@@ -133,12 +94,6 @@
     }
 
     return target;
-  };
-
-  world.forget_targets = function() {
-    for (var i = 0, l = this.highlighted_targets.length; i < l; i++) {
-      this.highlighted_targets[i] = null;
-    }
   };
 
   var move_char = function(dx, dy) {
