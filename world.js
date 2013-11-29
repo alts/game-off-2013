@@ -1,5 +1,6 @@
 (function(){
-  var world = {};
+  var submessage = require('submessage.js'),
+      world = {};
 
   world.init = function(title, win_condition) {
     this.objects = [];
@@ -40,6 +41,10 @@
 
     for (var i = 0, l = this.player_characters.length; i < l; i++) {
       this.player_characters[i].draw();
+    }
+
+    if (this.did_win) {
+      submessage.draw();
     }
   };
 
