@@ -1,5 +1,6 @@
 (function(){
-  var submessage = require('submessage.js'),
+  var submessage  = require('submessage.js'),
+      enchantment = require('enchantment.js'),
       world = {};
 
   world.init = function(title, win_condition) {
@@ -52,6 +53,16 @@
           break;
         }
       }
+    }
+  };
+
+  world.draw_enchantments = function(timer) {
+    if (!this.highlighted_targets) {
+      return;
+    }
+
+    for (var i = 0, l = this.highlighted_targets.length; i < l; i++) {
+      enchantment.draw_for_obj(this.highlighted_targets[i], timer);
     }
   };
 

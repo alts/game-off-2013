@@ -12,6 +12,7 @@
       this.current_level = 0;
     }
     this.reload();
+    this.clock = 0;
   };
 
   scene.reload = function() {
@@ -31,6 +32,18 @@
       this.level_title.draw('NEED SATISFIED');
     } else {
       this.level_title.draw(this.world.title);
+    }
+
+    this.world.draw_enchantments(this.clock * 255 * 3 / 2000);
+  };
+
+  scene.update = function(dt) {
+    this.clock += dt;
+    if (this.clock < 0) {
+      this.clock = 0;
+    }
+    if (this.clock > 2000) {
+      this.clock = this.clock % 2000;
     }
   };
 
