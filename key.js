@@ -7,6 +7,7 @@
       key         = Object.create(grid_object);
 
   key.type = '~key';
+  key.image = 'key.png';
 
   key.draw = function() {
     var ctx = jerk.ctx;

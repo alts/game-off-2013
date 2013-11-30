@@ -243,13 +243,13 @@
     },
 
     {
-      title: 'NEEDS TO TAKE THE GARBAGE OUTSIDE',
+      title: 'NEEDS TO LIGHT THE LANTERN OUTSIDE',
       objs: [
         ['~wizard', 9, 9],
         ['~crate', 11, 9],
         ['~crate', 13, 9],
-        ['~doodad', 11, 8, 'garbage_full.png'],
-        ['~doodad', 6, 9, 'garbage_empty.png']
+        ['~doodad', 11, 8, 'lit_lantern.png'],
+        ['~doodad', 6, 9, 'unlit_lantern.png']
       ],
       walls: [
         9, 7, 1, 1,
@@ -261,45 +261,34 @@
         18, 7, 0, 2,
         15, 7, 0, 0
       ],
-      win: function(world) {
-        var full_garbages = 0,
-            is_outside_garbage_empty = false,
-            obj;
-
+      win: function(world){
+        var obj;
         for (var i = 0, l = world.objects.length; i < l; i++) {
           obj = world.objects[i];
-          if (obj.type == '~doodad' && obj.image == 'garbage_full.png') {
-            full_garbages++;
-          }
-
           if (obj.x == 6 &&
               obj.y == 9 &&
-              obj.type == '~doodad')
+              obj.type == '~doodad' &
+              obj.image == 'lit_lantern.png')
           {
-            if (obj.image == 'garbage_empty.png') {
-              is_outside_garbage_empty = true;
-            } else if (obj.image == 'garbage_full.png') {
-              full_garbages--;
-            }
+            return true;
           }
         }
-
-        return full_garbages == 0 && !is_outside_garbage_empty;
+        return false;
       }
     },
 
     {
       title: 'NEEDS TO FIND THEIR OLD KEY',
       objs: [
-        ['~wizard', 11, 2],
-        ['~crate', 11, 7],
-        ['~key', 11, 13]
+        ['~wizard', 12, 2],
+        ['~crate', 12, 7],
+        ['~key', 12, 13]
       ],
       walls: [
-        10, 1, 2, 0,
-        10, 2, 0, 11,
-        12, 2, 0, 11,
-        10, 14, 2, 0
+        11, 1, 2, 0,
+        11, 2, 0, 11,
+        13, 2, 0, 11,
+        11, 14, 2, 0
       ],
       win: function(world) {
         return world.player_characters[0].num_consumed('~key') == 1;
@@ -309,17 +298,17 @@
     {
       title: 'NEEDS DOORS',
       objs: [
-        ['~wizard', 11, 7],
-        ['~door', 9, 9]
+        ['~wizard', 12, 7],
+        ['~door', 10, 9]
       ],
       walls: [
-        5, 4, 12, 0,
-        5, 13, 12, 0,
-        9, 5, 0, 3,
-        9, 10, 0, 2,
-        13, 5, 0, 7,
-        5, 5, 0, 7,
-        17, 5, 0, 7
+        6, 4, 12, 0,
+        6, 13, 12, 0,
+        10, 5, 0, 3,
+        10, 10, 0, 2,
+        14, 5, 0, 7,
+        6, 5, 0, 7,
+        18, 5, 0, 7
       ],
       win: function(){}
     },
