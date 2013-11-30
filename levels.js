@@ -234,17 +234,17 @@
     {
       title: 'NEEDS TO LIGHT THE LANTERN',
       objs: [
-        ['~wizard', 11, 10],
-        ['~crate', 11, 8],
-        ['~wall', 8, 8],
-        ['~doodad', 7, 8, 'unlit_lantern.png'],
-        ['~doodad', 14, 8, 'lit_lantern.png']
+        ['~wizard', 12, 10],
+        ['~crate', 13, 8],
+        ['~wall', 9, 8],
+        ['~doodad', 8, 8, 'unlit_lantern.png'],
+        ['~doodad', 16, 8, 'lit_lantern.png']
       ],
       win: function(world){
         var obj;
         for (var i = 0, l = world.objects.length; i < l; i++) {
           obj = world.objects[i];
-          if (obj.x == 7 &&
+          if (obj.x == 8 &&
               obj.y == 8 &&
               obj.type == '~doodad' &
               obj.image == 'lit_lantern.png')
@@ -257,7 +257,7 @@
     },
 
     {
-      title: 'NEEDS TO GET RID OF THE GARBAGE',
+      title: 'NEEDS TO TAKE THE GARBAGE OUTSIDE',
       objs: [
         ['~wizard', 9, 9],
         ['~crate', 11, 9],
@@ -404,7 +404,7 @@
     {
       title: 'NEEDS TO UNDO A HUGE MISTAKE',
       objs: [
-        ['~wizard', 11, 7, 'food.png'],
+        ['~wizard', 11, 7, 'apple.png'],
         ['~mirror', 9, 5],
         ['~wizard', 15, 5]
       ],
@@ -451,6 +451,33 @@
         5, 5, 1, 6,
         7, 10, 10, 1,
         16, 5, 1, 4
+      ],
+      win: function(){}
+    },
+
+    {
+      title: 'NEEDS TO ESCAPE THIS CELL',
+      objs: [
+        ['~wizard', 10, 5],
+        ['~key', 10, 4],
+        ['~grate', 7, 6],
+        ['~grate', 8, 6],
+        ['~grate', 9, 6],
+        ['~grate', 10, 6],
+        ['~grate', 11, 6],
+        ['~locked_door', 12, 6],
+        ['~grate', 13, 6],
+        ['~grate', 14, 6],
+        ['~grate', 15, 6],
+        ['~grate', 16, 6],
+        ['~grate', 17, 6]
+      ],
+      walls: [
+        4, 0, 16, 2,
+        4, 3, 2, 9,
+        18, 3, 2, 9,
+        4, 12, 9, 2,
+        15, 12, 5, 2
       ],
       win: function(){}
     },

@@ -9,7 +9,9 @@
         '~wall':   require('wall.js'),
         '~key':    require('key.js'),
         '~door':   require('door.js'),
-        '~mirror': require('mirror.js')
+        '~mirror': require('mirror.js'),
+        '~grate':  require('grate.js'),
+        '~locked_door': require('locked_door.js')
       };
 
   return function(level_i) {
