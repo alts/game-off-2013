@@ -237,6 +237,12 @@
               valid,
               obj;
 
+          if (tx >= C.COLUMN_COUNT || ty >= C.ROW_COUNT - 1||
+              tx < 0 || ty < 0)
+          {
+            return false;
+          }
+
           for (var i = 0, l = that.objects.length; i < l; i++) {
             obj = that.objects[i];
             if (obj.x == tx && obj.y == ty) {
