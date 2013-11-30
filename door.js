@@ -16,18 +16,15 @@
   };
 
   door.draw = function() {
-    var ctx = jerk.ctx;
+    var img;
 
     if (this.is_open) {
-      ctx.fillStyle = '#222';
+      img = 'open_door.png';
     } else {
-      ctx.fillStyle = '#666';
+      img = 'closed_door.png';
     }
 
-    ctx.fillRect(
-      this.true_x(), this.true_y(),
-      C.UNIT_SIZE, C.UNIT_SIZE
-    );
+    images.draw(jerk.ctx, img, this.true_x(), this.true_y());
   };
 
   var deltas_to_direction = function (dx, dy) {
@@ -70,8 +67,8 @@
     }
   };
 
-  door.can_be_enchanted = function () {
-    return !this.is_open;
+  door.enchant_target = function () {
+    return this.is_open ? null: this;
   };
 
   return door;

@@ -12,6 +12,7 @@
       chairs  = load_image('chair.png'),
       lantern = load_image('lantern.png'),
       cake    = load_image('cake.png'),
+      door    = load_image('door.png'),
       poof    = load_image('poof.png');
 
   return {
@@ -62,6 +63,9 @@
     'lit_lantern.png': [lantern, 32, 0],
     'key.png': [load_image('key.png'), 0, 0],
     'table.png': [cake, 0, 0],
-    'cake.png': [cake, 32, 0]
+    'cake.png': [cake, 32, 0],
+    'open_door.png': [door, 0, 0],
+    'closed_door.png': [door, 32, 0],
+    'mirror.png': [load_image('mirror.png'), 0, 0]
   };
 })();
