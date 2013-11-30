@@ -135,21 +135,13 @@
     xs.push(C.COLUMN_COUNT);
     ys.push(C.ROW_COUNT);
 
-    console.log(xs);
-    console.log(ys);
-
     xs = _filter_duplicates(xs.sort(_numeric_sort));
     ys = _filter_duplicates(ys.sort(_numeric_sort));
-
-    console.log(xs);
-    console.log(ys);
 
     boxes = _positions_to_boxes(xs, ys);
     var x_boxes = boxes[0],
         y_boxes = boxes[1];
 
-    console.log(x_boxes);
-    console.log(y_boxes);
     ctx.fillStyle = 'rgba(0,0,0,0.5)';
     for (var i = 0, l = x_boxes.length; i < l; i++) {
       for (var j = 0, ll = y_boxes.length; j < ll; j++) {
