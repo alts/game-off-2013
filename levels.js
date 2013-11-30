@@ -187,10 +187,10 @@
         ['~wizard', 10, 7],
         ['~doodad', 16, 4, 'corpse.png'],
         ['~doodad', 15, 4, 'weapon.png'],
-        ['~doodad', 14, 4, 'chair_right.png'],
-        ['~crate', 14, 5],
-        ['~crate', 15, 5],
-        ['~crate', 16, 5]
+        ['~doodad', 14, 4, 'chair_down.png'],
+        ['~doodad', 14, 5, 'chair_right.png'],
+        ['~doodad', 15, 5, 'table.png'],
+        ['~doodad', 16, 5, 'chair_left.png']
       ],
       walls: [
         7, 3, 10, 0,
@@ -296,10 +296,12 @@
     },
 
     {
-      title: 'NEEDS DOORS',
+      title: 'NEEDS TO GET RID OF THE TRASH',
       objs: [
         ['~wizard', 12, 7],
-        ['~door', 10, 9]
+        ['~door', 10, 9],
+        ['~doodad', 8, 6, 'trash.png'],
+        ['~doodad', 16, 6, 'trash.png']
       ],
       walls: [
         6, 4, 12, 0,
@@ -314,10 +316,12 @@
     },
 
     {
-      title: 'NEEDS DOORS AGAIN',
+      title: 'NEEDS TO GET RID OF MORE TRASH',
       objs: [
         ['~wizard', 12, 7],
-        ['~door', 10, 9]
+        ['~door', 10, 9],
+        ['~doodad', 8, 2, 'trash.png'],
+        ['~doodad', 16, 2, 'trash.png']
       ],
       walls: [
         6, 4, 12, 0,
@@ -339,7 +343,7 @@
     },
 
     {
-      title: 'NEEDS TO MOVE THE CRATE TO THE OTHER SIDE',
+      title: "NEEDS TO MOVE OUT OF HIS PARENTS HOUSE",
       objs: [
         ['~wizard', 13, 7],
         ['~door', 14, 7],

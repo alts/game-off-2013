@@ -66,6 +66,7 @@
     'cake.png': [cake, 32, 0],
     'open_door.png': [door, 0, 0],
     'closed_door.png': [door, 32, 0],
-    'mirror.png': [load_image('mirror.png'), 0, 0]
+    'mirror.png': [load_image('mirror.png'), 0, 0],
+    'trash.png': [load_image('trash.png'), 0, 0]
   };
 })();
