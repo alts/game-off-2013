@@ -1,5 +1,6 @@
 (function(){
   var submessage  = require('submessage.js'),
+      C           = require('constants.js'),
       enchantment = require('enchantment.js'),
       poof        = require('poof.js'),
       world = {};
@@ -46,6 +47,10 @@
       this.player_characters[i].draw();
     }
 
+    if (this.is_casting) {
+      this.draw_dimming();
+    }
+
     if (this.did_win) {
       submessage.print('[SPACE] TO CONTINUE');
     } else {
@@ -64,7 +69,95 @@
     }
 
     for (var i = 0, l = this.highlighted_targets.length; i < l; i++) {
-      enchantment.draw_for_obj(this.highlighted_targets[i], timer);
+      if (this.highlighted_targets[i]) {
+        enchantment.draw_for_obj(this.highlighted_targets[i], timer);
+      }
+    }
+  };
+
+  var _filter_duplicates = function(xs) {
+    var res = [],
+        val,
+        last;
+
+    for (var i = 0, l = xs.length; i < l; i++) {
+      val = xs[i];
+      if (last !== val) {
+        res.push(val);
+        last = val;
+      }
+    }
+
+    return res;
+  };
+
+  var _positions_to_boxes = function (xs, ys) {
+    var x_boxes = [],
+        y_boxes = [],
+        last = 0,
+        s;
+
+    for (var i = 0, l = xs.length; i < l; i++) {
+      s = xs[i];
+      if (s != last) {
+        x_boxes.push([last, s - last]);
+      }
+      last = s + 1;
+    }
+
+    last = 0;
+    for (var i = 0, l = ys.length; i < l; i++) {
+      s = ys[i];
+      if (s != last) {
+        y_boxes.push([last, s - last]);
+      }
+      last = s + 1;
+    }
+
+    return [x_boxes, y_boxes];
+  };
+
+  var _numeric_sort = function (a, b) {
+    return a - b;
+  };
+
+  world.draw_dimming = function() {
+    var xs = [],
+        ys = [],
+        ctx = jerk.ctx,
+        caster;
+
+    for (var i = 0, l = this.player_characters.length; i < l; i++) {
+      caster = this.player_characters[i];
+      xs.push(caster.x);
+      ys.push(caster.y);
+    }
+    xs.push(C.COLUMN_COUNT);
+    ys.push(C.ROW_COUNT);
+
+    console.log(xs);
+    console.log(ys);
+
+    xs = _filter_duplicates(xs.sort(_numeric_sort));
+    ys = _filter_duplicates(ys.sort(_numeric_sort));
+
+    console.log(xs);
+    console.log(ys);
+
+    boxes = _positions_to_boxes(xs, ys);
+    var x_boxes = boxes[0],
+        y_boxes = boxes[1];
+
+    console.log(x_boxes);
+    console.log(y_boxes);
+    ctx.fillStyle = 'rgba(0,0,0,0.5)';
+    for (var i = 0, l = x_boxes.length; i < l; i++) {
+      for (var j = 0, ll = y_boxes.length; j < ll; j++) {
+        ctx.fillRect(
+          C.UNIT_SIZE * x_boxes[i][0], C.UNIT_SIZE * y_boxes[j][0] + C.BUFFER_HEIGHT,
+          C.UNIT_SIZE * x_boxes[i][1], C.UNIT_SIZE * y_boxes[j][1]
+        );
+      }
     }
   };
 

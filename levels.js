@@ -32,7 +32,7 @@
     {
       title: 'NEEDS FOOD BADLY',
       objs: [
-        ['~wizard', 11, 10],
+        ['~wizard', 12, 10],
         ['~food', 12, 6],
         ['~doodad', 14, 8, 'chair_right.png']
       ],
@@ -53,20 +53,6 @@
         'START CASTING MAGIC BY PRESSING [SPACE]',
         function(world) { return true; }
       ]
-    },
-
-    {
-      title: 'NEEDS SOME FRESH AIR',
-      objs: [
-        ['~wizard', 2, 3],
-        ['~food', 7, 2]
-      ],
-      walls: standard_walls,
-      win: function(world) {
-        var player = world.player_characters[0];
-        return (player.x == 0 || player.x == 24 ||
-                player.y == 0 || player.y == 15);
-      }
     },
 
     {

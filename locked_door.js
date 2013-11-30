@@ -14,6 +14,10 @@
     return [false, function(){}];
   };
 
+  locked_door.enchant_target = function() {
+    return null;
+  };
+
   locked_door.draw = function () {
     var ctx = jerk.ctx;
     ctx.fillStyle = '#950';
