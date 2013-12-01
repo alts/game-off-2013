@@ -160,6 +160,8 @@ var _v_bb618078c0f0dd83dc8b3348758912a6 = (function(){
       if (that.scene && that.scene[eventname]) {
         that.scene[eventname](e);
       }
+
+      e.preventDefault();
     };
   };
 
@@ -860,7 +862,7 @@ var _v_99408439b06670b1565af8246f9ad9df = (function(){
     {
       title: 'IS CONTENT',
       objs: [
-        ['~wizard', 11, 7]
+        ['~wizard', 12, 7]
       ],
       walls: [],
       win: function(){},
