@@ -11,6 +11,8 @@ Wizards, they're just like us. Armed with the ability to transform objects into 
 
 ## Controls
 
+	R to restart level
+
 In normal mode:
 
 	Arrow keys to move
