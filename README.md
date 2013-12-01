@@ -12,11 +12,15 @@ Wizards, they're just like us. Armed with the ability to transform objects into 
 ## Controls
 
 In normal mode:
+
 Arrow keys to move
+
 SPACE to enter MAGIC MODE
 
 In magic mode:
+
 Arrow keys to cast magic
+
 Space to exit MAGIC MODE
 
 ## Magic
@@ -26,4 +30,5 @@ Your one and only spell is capable of transforming one object into another. You'
 ## Credits
 
 Font by [noragames](http://noragames.com/)
+
 Everything else by [Stephen Altamirano](http://evilrobotstuff.com)
