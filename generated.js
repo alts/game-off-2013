@@ -1047,11 +1047,34 @@ var _v_d33dac296acfee4e8314a43bc30f90b2 = (function(){
 
   return poof;
 })();
+var _v_3fdb77ba8315d78457c04c2e26877a7e = (function() {
+  var load_source = function(path) {
+    var d = document.createElement('audio');
+    if (!d) {
+      return null;
+    }
+    d.src = path;
+    return d;
+  };
+
+  return {
+    play: function(name) {
+      var audio_data = this[name];
+      if (audio_data) {
+        audio_data.play();
+      }
+    },
+    success: load_source('success.wav'),
+    cast_on_source: load_source('cast_on_source.wav'),
+    cast_on_drain: load_source('cast_on_drain.wav')
+  };
+})();
 var _v_4784f9327eb7f5f2d5e1facdd95fbda3 = (function(){
   var submessage  = _v_6d9d44b68ce2b956e68cd318cbcceb4e,
       C           = _v_88903d9c789529ef76d3636ebafcdb40,
       enchantment = _v_4db9ecc8c3ccb1508300250d17c60025,
       poof        = _v_d33dac296acfee4e8314a43bc30f90b2,
+      audio       = _v_3fdb77ba8315d78457c04c2e26877a7e,
       world = {};
 
   world.init = function(title, win_condition) {
@@ -1330,7 +1353,8 @@ var _v_4784f9327eb7f5f2d5e1facdd95fbda3 = (function(){
   var cast_magic = function(direction_index) {
     return function() {
       var targets = [],
-          any_hit = false,
+          any_enchanted = false,
+          any_transmuted = false,
           caster;
       for (var i = 0, l = this.player_characters.length; i < l; i++) {
         caster = this.player_characters[i];
@@ -1349,6 +1373,7 @@ var _v_4784f9327eb7f5f2d5e1facdd95fbda3 = (function(){
               targets[i] == this.player_characters[i]
             );
             this.poofs.locations.push([targets[i].true_x(), targets[i].true_y()]);
+            any_transmuted = true;
           } else if (this.highlighted_targets[i] && !targets[i]) {
             this.highlighted_targets[i].dechant();
           }
@@ -1361,8 +1386,15 @@ var _v_4784f9327eb7f5f2d5e1facdd95fbda3 = (function(){
         for (var i = 0, l = targets.length; i < l; i++) {
           if (targets[i]) {
             targets[i].enchant();
+            any_enchanted = true;
           }
         }
+      }
+
+      if (any_transmuted) {
+        audio.play('cast_on_drain');
+      } else if (any_enchanted) {
+        audio.play('cast_on_source');
       }
     }
   };
@@ -1434,6 +1466,7 @@ var _v_4784f9327eb7f5f2d5e1facdd95fbda3 = (function(){
 
     if (this.satisfies_win_condition()) {
       this.did_win = true;
+      audio.play('success');
     }
   };
 
