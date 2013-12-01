@@ -363,6 +363,37 @@ var _v_99408439b06670b1565af8246f9ad9df = (function(){
         return world.player_characters[0].num_consumed('~food') > 1;
       },
       submessages: [
+        'THIS IS ENOUGH APPLES   EAT THEM',
+        function(world) {
+          var num_foods = 0;
+          for (var i = 0, l = world.objects.length; i < l; i++) {
+            if (world.objects[i].type == '~food') {
+              num_foods++;
+            }
+          }
+          return (num_foods + world.player_characters[0].num_consumed('~food') > 1);
+        },
+        'ONE APPLE IS NOT ENOUGH   [R] TO RESTART',
+        function(world) {
+          var num_foods = 0;
+          for (var i = 0, l = world.objects.length; i < l; i++) {
+            if (world.objects[i].type == '~food') {
+              num_foods++;
+            }
+          }
+          return (num_foods == 0 &&
+                  world.player_characters[0].num_consumed('~food') > 0);
+        },
+        'NO MORE APPLES   [R] TO RESTART',
+        function(world) {
+          var num_foods = 0;
+          for (var i = 0, l = world.objects.length; i < l; i++) {
+            if (world.objects[i].type == '~food') {
+              num_foods++;
+            }
+          }
+          return num_foods == 0;
+        },
         'SELECT ANOTHER TARGET WITH THE ARROW KEYS',
         function(world) {
           return (world.player_characters[0].is_casting &&
@@ -536,7 +567,11 @@ var _v_99408439b06670b1565af8246f9ad9df = (function(){
         }
 
         return true;
-      }
+      },
+      submessages: [
+        'THEY CANT FIND WHAT THEY CANT SEE',
+        function() { return true; }
+      ]
     },
 
     {
@@ -561,7 +596,11 @@ var _v_99408439b06670b1565af8246f9ad9df = (function(){
           }
         }
         return false;
-      }
+      },
+      submessages: [
+        'CRATES CAN BE PUSHED',
+        function(){ return true; }
+      ]
     },
 
     {
@@ -634,7 +673,20 @@ var _v_99408439b06670b1565af8246f9ad9df = (function(){
         6, 5, 0, 7,
         18, 5, 0, 7
       ],
-      win: function(){}
+      win: function(world){
+        var obj;
+        for (var i = 0, l = world.objects.length; i < l; i++) {
+          obj = world.objects[i];
+          if (obj.type == '~doodad') {
+            return false;
+          }
+        }
+        return true;
+      },
+      submessages: [
+        'OBSERVE THE DOORS',
+        function () { return true; }
+      ]
     },
 
     {
@@ -661,41 +713,68 @@ var _v_99408439b06670b1565af8246f9ad9df = (function(){
         14, 2, 0, 1,
         18, 2, 0, 1
       ],
-      win: function(){}
+      win: function(world){
+        var obj;
+        for (var i = 0, l = world.objects.length; i < l; i++) {
+          obj = world.objects[i];
+          if (obj.type == '~doodad') {
+            return false;
+          }
+        }
+        return true;
+      }
     },
 
     {
-      title: "NEEDS TO MOVE OUT OF HIS PARENTS HOUSE",
+      title: "NEEDS TO MOVE OUT OF THEIR PARENTS HOUSE",
       objs: [
         ['~wizard', 13, 7],
         ['~door', 14, 7],
-        ['~crate', 16, 12]
+        ['~crate', 16, 12],
+        ['~wizard', 18, 1],
+        ['~wizard', 19, 1]
       ],
       walls: [
-        10, 0, 2, 16,
+        10, 0, 2, 15,
         14, 0, 0, 6,
-        14, 8, 0, 8,
+        14, 8, 0, 7,
         5, 6, 1, 0,
         5, 7, 0, 1,
         6, 8, 0, 0
       ],
-      win: function(){}
+      win: function(world){
+        if (world.player_characters[0].x >= 10) {
+          return false;
+        }
+        var obj;
+        for (var i = 0, l = world.objects.length; i < l; i++) {
+          obj = world.objects[i];
+          if (obj.type == '~crate' && obj.x < 10) {
+            return true;
+          }
+        }
+        return false;
+      },
+      submessages: [
+        'PRETEND THAT THAT CRATE IS LUGGAGE AND THAT THE CAR IS ON THE LEFT',
+        function () { return true; }
+      ]
     },
 
     {
       title: 'NEEDS TO ELIMINATE THE CLONES',
       objs: [
-        ['~wizard', 10, 6],
-        ['~wizard', 12, 8],
-        ['~wizard', 12, 6],
-        ['~wizard', 10, 8]
+        ['~wizard', 11, 6],
+        ['~wizard', 13, 8],
+        ['~wizard', 13, 6],
+        ['~wizard', 11, 8]
       ],
       controllables: 3,
       walls: [
-        6, 4, 10, 0,
-        6, 5, 0, 5,
-        7, 10, 9, 0,
-        16, 5, 0, 4
+        7, 4, 10, 0,
+        7, 5, 0, 5,
+        8, 10, 9, 0,
+        17, 5, 0, 4
       ],
       win: function(world){
         return world.player_characters.length == 1;
@@ -705,15 +784,15 @@ var _v_99408439b06670b1565af8246f9ad9df = (function(){
     {
       title: 'NEEDS TO UNDO A HUGE MISTAKE',
       objs: [
-        ['~wizard', 11, 7, 'apple.png'],
-        ['~mirror', 9, 5],
-        ['~wizard', 15, 5]
+        ['~wizard', 12, 7, 'apple.png'],
+        ['~mirror', 10, 5],
+        ['~wizard', 16, 5]
       ],
       walls: [
-        6, 4, 10, 0,
-        6, 5, 0, 5,
-        7, 10, 9, 0,
-        16, 5, 0, 4
+        7, 4, 10, 0,
+        7, 5, 0, 5,
+        8, 10, 9, 0,
+        17, 5, 0, 4
       ],
       win: function(world){
         return (world.player_characters.length == 1 &&
@@ -737,7 +816,17 @@ var _v_99408439b06670b1565af8246f9ad9df = (function(){
         8, 10, 9, 0,
         17, 5, 0, 4
       ],
-      win: function(){}
+      win: function(world){
+        if (world.player_characters.length > 3) {
+          return true;
+        }
+
+        return (world.player_characters.length == 1 &&
+                world.player_characters[0].special_image &&
+                world.player_characters[0].special_image.substring(0, 5) == 'chair' &&
+                world.player_characters[0].x == 14 &&
+                world.player_characters[0].y == 8);
+      }
     },
 
     {
@@ -753,58 +842,32 @@ var _v_99408439b06670b1565af8246f9ad9df = (function(){
         7, 10, 10, 1,
         16, 5, 1, 4
       ],
-      win: function(){}
+      win: function(world){
+        var caster;
+        for (var i = 0, l = world.player_characters.length; i < l; i++) {
+          caster = world.player_characters[i];
+          if (caster.x < 5 ||
+              caster.x > 16 ||
+              caster.y < 3 ||
+              caster.y > 10)
+          {
+            return true;
+          }
+        }
+        return false;
+      }
     },
-
     {
-      title: 'NEEDS TO ESCAPE THIS CELL',
+      title: 'IS CONTENT',
       objs: [
-        ['~wizard', 10, 5],
-        ['~key', 10, 4],
-        ['~grate', 7, 6],
-        ['~grate', 8, 6],
-        ['~grate', 9, 6],
-        ['~grate', 10, 6],
-        ['~grate', 11, 6],
-        ['~locked_door', 12, 6],
-        ['~grate', 13, 6],
-        ['~grate', 14, 6],
-        ['~grate', 15, 6],
-        ['~grate', 16, 6],
-        ['~grate', 17, 6]
+        ['~wizard', 11, 7]
       ],
-      walls: [
-        4, 0, 16, 2,
-        4, 3, 2, 9,
-        18, 3, 2, 9,
-        4, 12, 9, 2,
-        15, 12, 5, 2
-      ],
-      win: function(){}
-    },
-
-    {
-      title: 'NEEDS TO DO SOMETHING',
-      objs: [
-        ['~wizard', 11, 7],
-        ['~crate', 9, 9],
-        ['~crate', 13, 9],
-        ['~crate', 9, 13],
-        ['~crate', 13, 13],
-        ['~door', 1, 1]
-      ],
-      walls: [
-        10, 8, 2, 0,
-        10, 10, 2, 2,
-        6, 8, 2, 0,
-        6, 10, 2, 2,
-        14, 8, 2, 0,
-        14, 10, 2, 2,
-        10, 14, 2, 2,
-        6, 14, 2, 2,
-        14, 14, 2, 2
-      ],
-      win: function(){}
+      walls: [],
+      win: function(){},
+      submessages: [
+        'THANKS FOR PLAYING',
+        function () {return true;}
+      ]
     }
   ];
 })();
