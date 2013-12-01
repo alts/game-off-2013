@@ -351,7 +351,7 @@
       drain.dead = true;
     } else {
       if (source.type == '~wizard') {
-        drain.special_image = null;
+        drain.special_image = source.special_image;
       } else {
         drain.special_image = source.get_image();
       }
