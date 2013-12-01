@@ -13,15 +13,15 @@ Wizards, they're just like us. Armed with the ability to transform objects into 
 
 In normal mode:
 
-Arrow keys to move
+	Arrow keys to move
 
-SPACE to enter MAGIC MODE
+	SPACE to enter MAGIC MODE
 
 In magic mode:
 
-Arrow keys to cast magic
+	Arrow keys to cast magic
 
-Space to exit MAGIC MODE
+	Space to exit MAGIC MODE
 
 ## Magic
 
