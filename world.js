@@ -3,6 +3,7 @@
       C           = require('constants.js'),
       enchantment = require('enchantment.js'),
       poof        = require('poof.js'),
+      audio       = require('audio.js'),
       world = {};
 
   world.init = function(title, win_condition) {
@@ -281,7 +282,8 @@
   var cast_magic = function(direction_index) {
     return function() {
       var targets = [],
-          any_hit = false,
+          any_enchanted = false,
+          any_transmuted = false,
           caster;
       for (var i = 0, l = this.player_characters.length; i < l; i++) {
         caster = this.player_characters[i];
@@ -300,6 +302,7 @@
               targets[i] == this.player_characters[i]
             );
             this.poofs.locations.push([targets[i].true_x(), targets[i].true_y()]);
+            any_transmuted = true;
           } else if (this.highlighted_targets[i] && !targets[i]) {
             this.highlighted_targets[i].dechant();
           }
@@ -312,8 +315,15 @@
         for (var i = 0, l = targets.length; i < l; i++) {
           if (targets[i]) {
             targets[i].enchant();
+            any_enchanted = true;
           }
         }
+      }
+
+      if (any_transmuted) {
+        audio.play('cast_on_drain');
+      } else if (any_enchanted) {
+        audio.play('cast_on_source');
       }
     }
   };
@@ -385,6 +395,7 @@
 
     if (this.satisfies_win_condition()) {
       this.did_win = true;
+      audio.play('success');
     }
   };
 
