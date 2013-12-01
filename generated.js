@@ -1054,6 +1054,7 @@ var _v_3fdb77ba8315d78457c04c2e26877a7e = (function() {
       return null;
     }
     d.src = path;
+    d.volume = 0.5;
     return d;
   };
 
@@ -1422,7 +1423,7 @@ var _v_4784f9327eb7f5f2d5e1facdd95fbda3 = (function(){
       drain.dead = true;
     } else {
       if (source.type == '~wizard') {
-        drain.special_image = null;
+        drain.special_image = source.special_image;
       } else {
         drain.special_image = source.get_image();
       }
