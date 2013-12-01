@@ -5,6 +5,7 @@
       return null;
     }
     d.src = path;
+    d.volume = 0.5;
     return d;
   };
 
