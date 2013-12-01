@@ -160,6 +160,8 @@
       if (that.scene && that.scene[eventname]) {
         that.scene[eventname](e);
       }
+
+      e.preventDefault();
     };
   };
 
