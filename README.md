@@ -1,5 +1,7 @@
 # The Wizard Hierarchy of Needs
 
+![screenshot](http://alts.github.io/game-off-2013/ss.png)
+
 ## Theme
 Change -> Transmute
 
