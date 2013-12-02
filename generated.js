@@ -1070,7 +1070,7 @@ var _v_3fdb77ba8315d78457c04c2e26877a7e = (function() {
       }
     },
     success: load_source('success.wav'),
-    cast_on_source: load_source('cast_on_source.wav'),
+    cast_on_source: load_source('cast_on_source2.wav'),
     cast_on_drain: load_source('cast_on_drain.wav')
   };
 })();
