@@ -475,7 +475,11 @@
       win: function(world){
         return (world.player_characters.length == 1 &&
                 world.player_characters[0].special_image == null);
-      }
+      },
+      submessages: [
+        'MIRRORS REFLECT MAGIC',
+        function() {return true;}
+      ]
     },
 
     {
