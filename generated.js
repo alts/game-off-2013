@@ -799,7 +799,11 @@ var _v_99408439b06670b1565af8246f9ad9df = (function(){
       win: function(world){
         return (world.player_characters.length == 1 &&
                 world.player_characters[0].special_image == null);
-      }
+      },
+      submessages: [
+        'MIRRORS REFLECT MAGIC',
+        function() {return true;}
+      ]
     },
 
     {
