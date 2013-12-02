@@ -17,7 +17,7 @@
       }
     },
     success: load_source('success.wav'),
-    cast_on_source: load_source('cast_on_source.wav'),
+    cast_on_source: load_source('cast_on_source2.wav'),
     cast_on_drain: load_source('cast_on_drain.wav')
   };
 })();
